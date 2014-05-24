@@ -19,6 +19,10 @@
       app.controller('beerCtrl', function($scope) {
         $scope.title = 'I like beer.';
         $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
+
+        $scope.addBeer = function() {
+          $scope.beerList.push($scope.newBeer);
+        };
       });
     </script>
   </head>
@@ -31,6 +35,9 @@
     <div ng-controller="beerCtrl">
       <div>{{ title }}</div><br/>
       <div ng-repeat="beer in beerList">{{ beer }}</div>
+
+      <input ng-model="newBeer"></input>
+      <button ng-click="addBeer()">Add</button>
     </div>
   </body>
 </html>
