@@ -21,8 +21,12 @@
         $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
 
         $scope.addBeer = function() {
-          $scope.beerList.push($scope.newBeer);
-          $scope.newBeer = '';
+          var beer = $scope.newBeer;
+
+          if ($scope.beerList.indexOf(beer) === -1) {
+            $scope.beerList.push(beer);
+            $scope.newBeer = '';
+          }
         };
       });
     </script>
