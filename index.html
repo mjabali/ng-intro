@@ -26,6 +26,9 @@
           if ($scope.beerList.indexOf(beer) === -1) {
             $scope.beerList.push(beer);
             $scope.newBeer = '';
+            $scope.error = '';
+          } else {
+            $scope.error = 'Dude, you already like that beer.';
           }
         };
       });
@@ -43,6 +46,7 @@
 
       <input ng-model="newBeer"></input>
       <button ng-click="addBeer()">Add</button>
+      <div style="color: red">{{ error }}</div>
     </div>
   </body>
 </html>
