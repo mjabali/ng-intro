@@ -15,10 +15,20 @@
           return out;
         };
       });
+
+      app.controller('beerCtrl', function($scope) {
+        $scope.title = 'I like beer.';
+      });
     </script>
   </head>
   <body>
     <input ng-model="foo"></input>
     <div>{{ foo | uppercase | reverse }}</div>
+
+    <br/>
+
+    <div ng-controller="beerCtrl">
+      <div>{{ title }}</div>
+    </div>
   </body>
 </html>
