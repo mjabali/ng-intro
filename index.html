@@ -18,6 +18,7 @@
 
       app.controller('beerCtrl', function($scope) {
         $scope.title = 'I like beer.';
+        $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
       });
     </script>
   </head>
@@ -28,7 +29,8 @@
     <br/>
 
     <div ng-controller="beerCtrl">
-      <div>{{ title }}</div>
+      <div>{{ title }}</div><br/>
+      <div ng-repeat="beer in beerList">{{ beer }}</div>
     </div>
   </body>
 </html>
