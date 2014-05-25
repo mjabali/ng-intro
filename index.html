@@ -16,7 +16,7 @@
         };
       });
 
-      app.controller('beerCtrl', function($scope) {
+      app.controller('beerCtrl', function($scope, $http) {
         $scope.title = 'I like beer.';
         $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
 
@@ -31,6 +31,11 @@
             $scope.error = 'Dude, you already like that beer.';
           }
         };
+
+        $http.get('http://api.openbeerdatabase.com/v1/beers.json').
+          success(function(data) {
+            $scope.newBeers = data.beers;
+          });
       });
     </script>
   </head>
@@ -47,6 +52,13 @@
       <input ng-model="newBeer"></input>
       <button ng-click="addBeer()">Add</button>
       <div style="color: red">{{ error }}</div>
+
+      <br/>
+
+      <div ng-repeat="beer in newBeers">
+        <span>{{ beer.brewery.name }} - </span>
+        <span>{{ beer.name }}</span>
+      </div>
     </div>
   </body>
 </html>
