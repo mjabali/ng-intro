@@ -40,6 +40,10 @@
           beerService.query(terms).
             success(function(data) {
               $scope.newBeers = data.beers;
+              $scope.error = '';
+            }).
+            error(function() {
+              $scope.error = 'Sorry, something blew up with that search.';
             });
         };
       });
@@ -66,9 +70,12 @@
       <div>{{ title }}</div><br/>
       <div ng-repeat="beer in beerList">{{ beer }}</div>
 
+      <br/>
+
+      <div style="color: red">{{ error }}</div>
+
       <input ng-model="newBeer"></input>
       <button ng-click="addBeer(newBeer)">Add</button>
-      <div style="color: red">{{ error }}</div>
 
       <br/>
 
