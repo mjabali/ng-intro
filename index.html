@@ -22,7 +22,7 @@
         };
       });
 
-      app.controller('beerCtrl', function($scope, $http) {
+      app.controller('beerCtrl', function($scope, beerService) {
         $scope.title = 'I like beer.';
         $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
 
@@ -36,10 +36,23 @@
           }
         };
 
-        $http.get('http://api.openbeerdatabase.com/v1/beers.json').
-          success(function(data) {
-            $scope.newBeers = data.beers;
-          });
+        $scope.searchBeer = function(terms) {
+          beerService.query(terms).
+            success(function(data) {
+              $scope.newBeers = data.beers;
+            });
+        };
+      });
+
+      app.factory('beerService', function($http) {
+        var beerService = {
+          query: function(terms) {
+            var url = 'http://api.openbeerdatabase.com/v1/beers.json?query=' + terms;
+            return $http.get(url);
+          }
+        };
+
+        return beerService;
       });
     </script>
   </head>
@@ -59,6 +72,8 @@
 
       <br/>
 
+      <input ng-model="searchTerms"></input>
+      <button ng-click="searchBeer(searchTerms)">Search</button>
       <div ng-repeat="beer in newBeers" ng-click="addBeer(beer.name)" class="beer">
         <span>{{ beer.brewery.name }} - </span>
         <span>{{ beer.name }}</span>
