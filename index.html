@@ -2,6 +2,12 @@
   <head>
     <title>Angular Intro App</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <style type="text/css">
+      .beer:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
     <script type="text/javascript">
       var app = angular.module('ngIntroApp', []);
 
@@ -20,9 +26,7 @@
         $scope.title = 'I like beer.';
         $scope.beerList = ['Enjoy By IPA', 'The Apprentice', 'Sculpin IPA', 'Pliny the Elder', 'West Coast IPA', 'Pure Hoppiness', 'Maharaja'];
 
-        $scope.addBeer = function() {
-          var beer = $scope.newBeer;
-
+        $scope.addBeer = function(beer) {
           if ($scope.beerList.indexOf(beer) === -1) {
             $scope.beerList.push(beer);
             $scope.newBeer = '';
@@ -50,12 +54,12 @@
       <div ng-repeat="beer in beerList">{{ beer }}</div>
 
       <input ng-model="newBeer"></input>
-      <button ng-click="addBeer()">Add</button>
+      <button ng-click="addBeer(newBeer)">Add</button>
       <div style="color: red">{{ error }}</div>
 
       <br/>
 
-      <div ng-repeat="beer in newBeers">
+      <div ng-repeat="beer in newBeers" ng-click="addBeer(beer.name)" class="beer">
         <span>{{ beer.brewery.name }} - </span>
         <span>{{ beer.name }}</span>
       </div>
