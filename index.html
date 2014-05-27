@@ -7,6 +7,12 @@
         cursor: pointer;
         text-decoration: underline;
       }
+      .red {
+        color: red;
+      }
+      .highlight:hover {
+        font-weight: bold;
+      }
     </style>
     <script type="text/javascript">
       var app = angular.module('ngIntroApp', []);
@@ -58,6 +64,19 @@
 
         return beerService;
       });
+
+      app.directive('beerDisplay', function() {
+        return {
+          restrict: 'E',
+          scope: {
+            name: '=name'
+          },
+          template: "<span class='red'>&#10084;</span><span>{{ name }}</span>",
+          link: function(scope, element, attr) {
+            element.addClass('highlight');
+          }
+        };
+      });
     </script>
   </head>
   <body>
@@ -68,11 +87,13 @@
 
     <div ng-controller="beerCtrl">
       <div>{{ title }}</div><br/>
-      <div ng-repeat="beer in beerList">{{ beer }}</div>
+      <div ng-repeat="beer in beerList">
+        <beer-display name="beer"></beer-display>
+      </div>
 
       <br/>
 
-      <div style="color: red">{{ error }}</div>
+      <div class="red">{{ error }}</div>
 
       <input ng-model="newBeer"></input>
       <button ng-click="addBeer(newBeer)">Add</button>
